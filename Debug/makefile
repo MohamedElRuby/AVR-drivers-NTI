@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include COTS/MCAL/subdir.mk
+-include COTS/HAL/subdir.mk
 -include COTS/APP/subdir.mk
 -include subdir.mk
 -include objects.mk

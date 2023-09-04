@@ -29,7 +29,13 @@
 							</tool>
 							<tool id="de.innot.avreclipse.tool.compiler.winavr.app.debug.157553942" name="AVR Compiler" superClass="de.innot.avreclipse.tool.compiler.winavr.app.debug">
 								<option id="de.innot.avreclipse.compiler.option.debug.level.923725720" name="Generate Debugging Info" superClass="de.innot.avreclipse.compiler.option.debug.level"/>
-								<option id="de.innot.avreclipse.compiler.option.optimize.1254346662" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize"/>
+								<option id="de.innot.avreclipse.compiler.option.optimize.1254346662" name="Optimization Level" superClass="de.innot.avreclipse.compiler.option.optimize" useByScannerDiscovery="false" value="de.innot.avreclipse.compiler.optimize.size" valueType="enumerated"/>
+								<option id="de.innot.avreclipse.compiler.option.incpath.407071260" name="Include Paths (-I)" superClass="de.innot.avreclipse.compiler.option.incpath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NTIII/COTS/Libary}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NTIII/COTS/MCAL}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NTIII/COTS/HAL}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/NTIII/COTS/Free_RTOS}&quot;"/>
+								</option>
 								<inputType id="de.innot.avreclipse.compiler.winavr.input.1696131562" name="C Source Files" superClass="de.innot.avreclipse.compiler.winavr.input"/>
 							</tool>
 							<tool id="de.innot.avreclipse.tool.cppcompiler.app.debug.434041874" name="AVR C++ Compiler" superClass="de.innot.avreclipse.tool.cppcompiler.app.debug">

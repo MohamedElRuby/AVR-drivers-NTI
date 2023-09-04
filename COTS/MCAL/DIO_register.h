@@ -9,7 +9,7 @@
 //PORTB
 #define PORTB_reg *((volatile u8*) 0x38)
 #define DDRB_reg  *((volatile u8*) 0x37)
-#define PINAB_reg  *((volatile u8*) 0x36)
+#define PINB_reg  *((volatile u8*) 0x36)
 
 //PORTC
 #define PORTC_reg *((volatile u8*) 0x35)
@@ -21,10 +21,10 @@
 #define DDRD_reg  *((volatile u8*) 0x31)
 #define PIND_reg  *((volatile u8*) 0x30)
 
-#define PORTA 1
-#define PORTB 2
-#define PORTC 3
-#define PORTD 4
+#define PORTA 0
+#define PORTB 1
+#define PORTC 2
+#define PORTD 3
 
 
 

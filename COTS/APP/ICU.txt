@@ -1,0 +1,133 @@
+#include "../Libary/BIT_MATH.h"
+#include "../Libary/STD_TYPES.h"
+
+#include "../MCAL/DIO_interface.h"
+#include "../MCAL/DIO_config.h"
+#include "../MCAL/DIO_register.h"
+#include "../MCAL/EXTI0_interface.h"
+#include "../MCAL/GIE_interface.h"
+#include "../MCAL/ADC.h"
+#include "../MCAL/UART_int.h"
+#include "../MCAL/spi_init.h"
+#include "../MCAL/Timer_interface.h"
+#include "../MCAL/Timer_register.h"
+#include "../MCAL/Tim1_register.h"
+
+
+
+
+
+
+
+
+#include "../HAL/LCD_interface.h"
+#include "../HAL/Keypad_interface.h"
+
+#include "util/delay.h"
+
+volatile u16 counter = 0;
+
+volatile u16 ton=0;
+volatile u16 toff=0;
+volatile u16 t_total=0;
+
+volatile u16 u16temp1;
+volatile u16 u16temp2;
+volatile u16 u16temp3;
+
+volatile u8 u8flag = 1;
+
+void ISR();
+
+void main(){
+	    DIO_voidSetPinDirection(PORTB,3,DIO_u8_OUTPUT);
+	    DIO_voidSetPinDirection(PORTD,6,DIO_u8_INPUT);
+	    GIE_voidEnable();
+
+    	f32 f32TimerClock = (8/(f32)8000000) ; /*Tick Time*/
+		u16 u16Duty_cycle ;
+		u16 u16Period;
+		u16 u16Freq = 0;
+
+		LCD_init();
+		Tim0Init();
+		TIM0_voidSetCompareVal(127);
+
+		SET_BIT(TIMSK_Register,5);	//enable ICU INT
+
+		Tim1_VID_SET_CALL_BACK(ISR);
+		Tim1Init();
+
+
+		  	while(u8flag!=4);
+
+		  	ton=u16temp3-u16temp2;
+			u16Period = u16temp2-u16temp1;
+			u16Duty_cycle = ((ton*100)/u16Period);
+
+			u16Freq = (1 / ( u16Period * f32TimerClock ));
+
+			GoToXY(0,0);
+			LCD_SendString("Duty:");
+
+			LCD_SendString("Freq");
+			LCD_voidWriteNumber(u16Duty_cycle);
+			LCD_sendChar('%');
+
+			GoToXY(0,1);
+			LCD_voidWriteNumber(u16Freq);
+
+
+
+			//LCD_sendChar('%');
+
+		//	GoToXY(0,1);
+		//	LCD_SendString("Freq =");
+		//	LCD_voidWriteNumber(u16Freq);
+
+		while(1)
+		{
+
+		}
+
+
+}
+
+
+
+
+
+void ISR(){
+	if(u8flag == 1)
+		{
+		    u16temp1=Tim1_GetValue();
+			//Tim1_SetFailingEdge();
+			//ICR_value=Tim1_GetValue();
+			u8flag=2;
+		}
+		else if(u8flag == 2)
+		{
+			u16temp2=Tim1_GetValue();
+			u8flag=3;
+			Tim1_SetFailingEdge();
+
+
+		}
+		else if(u8flag == 3)
+		{
+			u16temp3=Tim1_GetValue();
+			GIE_voidDisable();
+			u8flag=4;
+			CLR_BIT(TIMSK_Register,6);
+
+
+		}
+		else{}
+
+}
+
+
+
+
+
+

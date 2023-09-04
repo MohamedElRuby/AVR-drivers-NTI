@@ -1,19 +1,19 @@
-#include "../Libary/BIT_MATH.h"
-#include "../Libary/STD_TYPES.h"
-#include "../MCAL/DIO_interface.h"
-#include "../MCAL/DIO_config.h"
-#include "../MCAL/DIO_register.h"
+
+#include "STD_TYPES.h"
+#include "BIT_MATH.h"
+
+#include "DIO_interface.h"
+#include "DIO_register.h"
+
+#include "LCD_interface.h"
+#include "KEYPAD_interface.h"
 
 
-void main (){
-	//DIO_voidSetPinDirection(PORTA,4,DIO_u8_PORTA_PIN_DIR_4);
-	DIO_init();
-    DIO_voidSetPinValue(PORTA,4,DIO_u8_HIGH);
 
+void main(){
 
+	
+
+	}
 
 }
-
-
-
-

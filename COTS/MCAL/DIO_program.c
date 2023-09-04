@@ -15,7 +15,7 @@ void   DIO_init (){
 
 
 void	DIO_voidSetPinDirection	(u8 PortId,u8 PinId,u8 Direction){
-	if( (PortId <= 7) && (PortId<= PORTD) ){
+	if( (PortId <= PORTD) && (PinId <= 7)) {
 
 
 
@@ -25,6 +25,8 @@ void	DIO_voidSetPinDirection	(u8 PortId,u8 PinId,u8 Direction){
 			case PORTB: SET_BIT(DDRB_reg,PinId); break;
 			case PORTC: SET_BIT(DDRC_reg,PinId); break;
 			case PORTD: SET_BIT(DDRD_reg,PinId); break;
+			default : break;
+
 			}
 
 		}else if (Direction==DIO_u8_INPUT){
@@ -33,6 +35,8 @@ void	DIO_voidSetPinDirection	(u8 PortId,u8 PinId,u8 Direction){
 			case PORTB: CLR_BIT(DDRB_reg,PinId); break;
 			case PORTC: CLR_BIT(DDRC_reg,PinId); break;
 			case PORTD: CLR_BIT(DDRD_reg,PinId); break;
+			default : break;
+
 			}
 
 	}
@@ -40,9 +44,7 @@ void	DIO_voidSetPinDirection	(u8 PortId,u8 PinId,u8 Direction){
 }
 
 void	DIO_voidSetPinValue	(u8 PortId,u8 PinId,u8 Value){
-	if( (PortId <= 7) && (PortId<= PORTD) ){
-
-
+	if( (PortId <= PORTD) && (PinId <= 7) ){
 
 			if(Value==DIO_u8_HIGH){
 				switch(PortId){
@@ -53,7 +55,8 @@ void	DIO_voidSetPinValue	(u8 PortId,u8 PinId,u8 Value){
 				default: break;
 				}
 
-			}else if(Value==DIO_u8_LOW){
+			}
+			else if(Value==DIO_u8_LOW){
 				switch(PortId){
 				case PORTA: CLR_BIT(PORTA_reg,PinId); break;
 				case PORTB: CLR_BIT(PORTB_reg,PinId); break;
@@ -68,14 +71,17 @@ void	DIO_voidSetPinValue	(u8 PortId,u8 PinId,u8 Value){
 
 }
 
-u8		DIO_u8GetPinValue			(u8 PortId,u8 PinId){
-	if( (PortId <= 7) && (PortId<= PORTD) ){
+u8	DIO_u8GetPinValue(u8 PortId,u8 PinId){
+	u8 Value;
+		if( (PortId <= PORTD) && (PinId <= 7) ){
 					switch(PortId){
-					case PORTA: return ( GET_BIT(PORTA_reg,PinId) ); break;
-					case PORTB: return GET_BIT(PORTA_reg,PinId); break;
-					case PORTC: return GET_BIT(PORTA_reg,PinId); break;
-					case PORTD: return GET_BIT(PORTA_reg,PinId); break;
+					case PORTA: Value=GET_BIT(PINA_reg,PinId); break;
+					case PORTB: Value=GET_BIT(PINB_reg,PinId); break;
+					case PORTC: Value=GET_BIT(PINC_reg,PinId); break;
+					case PORTD: Value=GET_BIT(PIND_reg,PinId); break;
 					default: break;
+
+					return Value;
 		}
 	}else{
 
